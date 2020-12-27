@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="apple-mobile-web-app-title" content="Full Screen Cam" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+		<title>Full Screen Cam</title>
+	</head>
+	<body>
+		<button class="captureBack">Capture back</button>
+		<button class="captureFront">Capture front</button>
+		<button class="fullscreen">Full screen</button>
+
+		<video autoplay></video>
+
+		<script>
+			// VIDEO CAPTURE
+
+			const video = document.querySelector("video");
+			video.setAttribute("autoplay", "");
+			video.setAttribute("muted", "");
+			video.setAttribute("playsinline", "");
+
+			function handleSuccess(stream) {
+				video.srcObject = stream;
+			}
+
+			function handleError(error) {
+				console.error("Error: ", error);
+			}
+
+			function capture(elementSelector, facingMode) {
+				const element = document.querySelector(elementSelector);
+
+				const constraints = {
+					video: { facingMode: facingMode },
+				};
+
+				element.onclick = function () {
+					navigator.mediaDevices.getUserMedia(constraints).then(handleSuccess).catch(handleError);
+				};
+			}
+
+			capture(".captureFront", "user");
+			capture(".captureBack", "environment");
+
+			// FULLSCREEN HANDLING
+
+			const fullscreenButton = document.querySelector(".fullscreen");
+
+			fullscreenButton.onclick = function () {
+				if (video.webkitEnterFullScreen) {
+					video.webkitEnterFullScreen(); // Mobile Safari
+				} else if (video.requestFullscreen) {
+					video.requestFullscreen();
+				} else if (video.webkitRequestFullscreen) {
+					// Regular Safari
+					video.webkitRequestFullscreen();
+				} else if (video.msRequestFullscreen) {
+					// IE11
+					video.msRequestFullscreen();
+				}
+			};
+		</script>
+	</body>
+</html>
