@@ -1,5 +1,9 @@
 # iPhone as a webcam
 
+Apple now offers a native solution for using an iPhone as a webcam. The instructions can be found at [https://support.apple.com/en-us/HT213244](https://support.apple.com/en-us/HT213244)
+
+Previous instructions are available here:
+
 ## Display full-screen camera feed without any user interface on your iPhone
 
 1. Open [camera.html](https://apancik.github.io/iphone-as-a-webcam/camera.html) on your phone
